@@ -33,8 +33,8 @@ interface ContainerInterface extends PsrContainerInterface
     /**
      * Sets a service.
      *
-     * @param string $id      The service identifier
-     * @param object $service The service instance
+     * @param string          $id      The service identifier
+     * @param object|callable $service The service instance
      */
     public function set($id, $service);
 
