@@ -25,7 +25,7 @@ class ErrorDetailsStampTest extends TestCase
         $exception = new \Exception('exception message');
         $flattenException = FlattenException::createFromThrowable($exception);
 
-        $stamp = new ErrorDetailsStamp($exception);
+        $stamp = ErrorDetailsStamp::create($exception);
 
         $this->assertSame(\Exception::class, $stamp->getExceptionClass());
         $this->assertSame('exception message', $stamp->getExceptionMessage());
@@ -39,7 +39,7 @@ class ErrorDetailsStampTest extends TestCase
         $exception = new HandlerFailedException($envelope, [$wrappedException]);
         $flattenException = FlattenException::createFromThrowable($wrappedException);
 
-        $stamp = new ErrorDetailsStamp($exception);
+        $stamp = ErrorDetailsStamp::create($exception);
 
         $this->assertSame(\Exception::class, $stamp->getExceptionClass());
         $this->assertSame('I am inside', $stamp->getExceptionMessage());
@@ -50,7 +50,7 @@ class ErrorDetailsStampTest extends TestCase
     public function testDeserialization(): void
     {
         $exception = new \Exception('exception message');
-        $stamp = new ErrorDetailsStamp($exception);
+        $stamp = ErrorDetailsStamp::create($exception);
         $serializer = new Serializer();
 
         $deserializedEnvelope = $serializer->decode($serializer->encode(new Envelope(new \stdClass(), [$stamp])));
