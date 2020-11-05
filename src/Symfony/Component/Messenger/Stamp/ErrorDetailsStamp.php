@@ -33,10 +33,7 @@ final class ErrorDetailsStamp implements StampInterface
     private $flattenException;
 
     /**
-     * @param string $exceptionClass
      * @param int|mixed $exceptionCode
-     * @param string $exceptionMessage
-     * @param FlattenException|null $flattenException
      */
     public function __construct(
         string $exceptionClass,
