@@ -16,6 +16,7 @@ use Symfony\Component\ErrorHandler\Exception\FlattenException;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\Stamp\ErrorDetailsStamp;
+use Symfony\Component\Messenger\Transport\Serialization\Serializer;
 
 class ErrorDetailsStampTest extends TestCase
 {
@@ -44,5 +45,18 @@ class ErrorDetailsStampTest extends TestCase
         $this->assertSame('I am inside', $stamp->getExceptionMessage());
         $this->assertSame(123, $stamp->getExceptionCode());
         $this->assertEquals($flattenException, $stamp->getFlattenException());
+    }
+
+    public function testDeserialization(): void
+    {
+        $exception = new \Exception('exception message');
+        $stamp = new ErrorDetailsStamp($exception);
+        $serializer = new Serializer();
+
+        $deserializedEnvelope = $serializer->decode($serializer->encode(new Envelope(new \stdClass(), [$stamp])));
+
+        $deserializedStamp = $deserializedEnvelope->last(ErrorDetailsStamp::class);
+        $this->assertInstanceOf(ErrorDetailsStamp::class, $deserializedStamp);
+        $this->assertEquals($stamp, $deserializedStamp);
     }
 }
