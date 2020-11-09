@@ -35,12 +35,8 @@ final class ErrorDetailsStamp implements StampInterface
     /**
      * @param int|mixed $exceptionCode
      */
-    public function __construct(
-        string $exceptionClass,
-        $exceptionCode,
-        string $exceptionMessage,
-        ?FlattenException $flattenException = null
-    ) {
+    public function __construct(string $exceptionClass, $exceptionCode, string $exceptionMessage, ?FlattenException $flattenException = null)
+    {
         $this->exceptionClass = $exceptionClass;
         $this->exceptionCode = $exceptionCode;
         $this->exceptionMessage = $exceptionMessage;
@@ -58,12 +54,7 @@ final class ErrorDetailsStamp implements StampInterface
             $flattenException = FlattenException::createFromThrowable($throwable);
         }
 
-        return new self(
-            \get_class($throwable),
-            $throwable->getCode(),
-            $throwable->getMessage(),
-            $flattenException
-        );
+        return new self( \get_class($throwable), $throwable->getCode(), $throwable->getMessage(), $flattenException);
     }
 
     public function getExceptionClass(): string
