@@ -34,7 +34,6 @@ final class FlattenExceptionNormalizer implements DenormalizerInterface, Context
      */
     public function normalize($object, $format = null, array $context = [])
     {
-        /** @var FlattenException $object */
         $normalized = [
             'message' => $object->getMessage(),
             'code' => $object->getCode(),
