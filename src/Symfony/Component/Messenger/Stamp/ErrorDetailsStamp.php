@@ -54,7 +54,7 @@ final class ErrorDetailsStamp implements StampInterface
             $flattenException = FlattenException::createFromThrowable($throwable);
         }
 
-        return new self( \get_class($throwable), $throwable->getCode(), $throwable->getMessage(), $flattenException);
+        return new self(\get_class($throwable), $throwable->getCode(), $throwable->getMessage(), $flattenException);
     }
 
     public function getExceptionClass(): string
